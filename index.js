@@ -1,4 +1,6 @@
 import http, { Server } from "http";
+import { formatComponent } from "./utils/formatComponent.js";
+import { getFileContent } from "./utils/getFileContent.js";
 import { getRoutePaths } from "./utils/getRoutePaths.js";
 
 const host = "localhost";
@@ -10,12 +12,16 @@ const server = http.createServer(async (req, res) => {
   if (method === "GET") {
     const allPages = await getRoutePaths("./simulation/pages");
     const myPage = allPages.find((x) => x.url === url && x.type === "file");
-    console.log(allPages);
     if (myPage) {
-      console.log(myPage);
-      res.end(`<h1>${myPage.name}</h1>`);
+      const contentPage = await getFileContent(myPage.path);
+      const html = await formatComponent(contentPage);
+      console.log(html);
+      res.writeHeader(200, { "Content-Type": "text/html" });
+      res.write(html);
+      res.end();
     } else {
-      res.writeHead(404);
+      const contentPage = await getFileContent("./simulation/pages/404.js");
+      res.end(contentPage);
     }
   }
 });
