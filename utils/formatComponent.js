@@ -1,3 +1,4 @@
+//do not delete this import
 import fetch from "node-fetch";
 
 function formatHTMLInJS(contentFile) {
@@ -23,7 +24,7 @@ function formatImportsRegExp(contentFile) {
     const allImport = x
     const defaultImport = predeterminedImport !== null ? predeterminedImport[0].replace('import ', '').replace(',', '') : undefined
     const path = x.match(regExpPath)[0]
-    const dynamicImportWithPredeterminatedImport = namedImports.replace('}', `, default: ${defaultImport}}`)
+    const dynamicImportWithPredeterminatedImport = defaultImport ? namedImports.replace('}', `, default: ${defaultImport}}`) : namedImports
     const dynamicImport = `const ${dynamicImportWithPredeterminatedImport} = await import(${path})`
 
     return {
@@ -53,16 +54,14 @@ function changeFileImports(contentFile, imports) {
 export async function formatComponent(contentFile) {
   let html = "";
   const dashsEliminated = contentFile
-    .replace("---", "return `<!DOCTYPE html>")
-    .replace("---", "`");
+    .replace("<>", "return `<!DOCTYPE html>")
+    .replace("</>", "`");
 
   const htmlEdited = formatHTMLInJS(dashsEliminated);
 
   const allImportsFormated = formatImportsRegExp(htmlEdited);
 
   const allImportsChanged = changeFileImports(htmlEdited, allImportsFormated)
-  console.log('allImportsChanged: ', allImportsChanged);
-
   const usingFunction = `async function usingAsyncFunction() {
     ${allImportsChanged}
   }
