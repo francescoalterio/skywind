@@ -2,9 +2,7 @@ import fetch from "node-fetch";
 
 function formatHTMLInJS(contentFile) {
   if (contentFile.indexOf("<>") !== -1) {
-    console.log(contentFile);
     const newContentFile = contentFile.replace("<>", "`").replace("</>", "`");
-    console.log(newContentFile);
     return formatHTMLInJS(newContentFile);
   } else {
     return contentFile;
@@ -17,7 +15,6 @@ function formatImports(contentFile) {
     contentFile.indexOf(`import('`) !== -1 ||
     contentFile.indexOf(`import("`) !== -1
   ) {
-    console.log(contentFile);
 
     let newContentFile = contentFile
       .replace("import ", "const ")
@@ -32,27 +29,53 @@ function formatImports(contentFile) {
         .replace('import("', "import(`")
         .replace(`"`, "`)");
     }
-
-    console.log(newContentFile);
     return formatImports(newContentFile);
   } else {
     return contentFile;
   }
 }
 
+function formatImportsRegExp(contentFile) {
+  const allImportsRegExp = /import (\w+,)? ?{[\w, ]+} from ('|"|`)+[a-zA-Z\.\/]+('|"|`)/g
+  const allImports = contentFile.match(allImportsRegExp)
+  console.log(allImports)
+  const allImportsWithNamedImports = allImports.map(x => {
+    const regExpNamedImports = /{[\w, ]+}/g
+    const regExpPredeterminedImports = /import [\w,]+/g
+    const predeterminedImport = x.match(regExpPredeterminedImports)
+    const regExpPath = /('|"|`)[\w.\/]+('|"|`)/g
+
+    const namedImports = x.match(regExpNamedImports)[0]
+    const allImport = x
+    const defaultImport = predeterminedImport !== null ? predeterminedImport[0].replace('import ', '').replace(',', '') : undefined
+    const path = x.match(regExpPath)[0]
+    const dynamicImportWithPredeterminatedImport = namedImports.replace('}', `, default: ${defaultImport}}`)
+    const dynamicImport = `const ${dynamicImportWithPredeterminatedImport} = await import(${path})`
+
+    return {
+      namedImports,
+      defaultImport,
+      path,
+      dynamicImport,
+      allImport
+    }
+  })
+  return allImportsWithNamedImports
+}
+
 export async function formatComponent(contentFile) {
   let html = "";
+  formatImportsRegExp(contentFile)
   const dashsEliminated = contentFile
     .replace("---", "return `<!DOCTYPE html>")
     .replace("---", "`");
   const htmlEdited = formatHTMLInJS(dashsEliminated);
-  const fileEdited = formatImports(htmlEdited);
+  
   const usingFunction = `async function usingAsyncFunction() {
-    ${fileEdited}
+    ${htmlEdited}
   }
   html = usingAsyncFunction()
   `;
   eval(usingFunction);
-  console.log(html);
   return html;
 }
