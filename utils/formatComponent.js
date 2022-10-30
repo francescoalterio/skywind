@@ -9,32 +9,6 @@ function formatHTMLInJS(contentFile) {
   }
 }
 
-function formatImports(contentFile) {
-  if (
-    contentFile.indexOf("import ") !== -1 ||
-    contentFile.indexOf(`import('`) !== -1 ||
-    contentFile.indexOf(`import("`) !== -1
-  ) {
-
-    let newContentFile = contentFile
-      .replace("import ", "const ")
-      .replace("from ", "= await import(");
-
-    if (contentFile.indexOf(`import('`) !== -1) {
-      newContentFile = newContentFile
-        .replace("import('", "import(`")
-        .replace(`'`, "`)");
-    } else if (contentFile.indexOf(`import("`) !== -1) {
-      newContentFile = newContentFile
-        .replace('import("', "import(`")
-        .replace(`"`, "`)");
-    }
-    return formatImports(newContentFile);
-  } else {
-    return contentFile;
-  }
-}
-
 function formatImportsRegExp(contentFile) {
   const allImportsRegExp = /import (\w+,)? ?{[\w, ]+} from ('|"|`)+[a-zA-Z\.\/]+('|"|`)/g
   const allImports = contentFile.match(allImportsRegExp)
@@ -63,16 +37,34 @@ function formatImportsRegExp(contentFile) {
   return allImportsWithNamedImports
 }
 
+function changeFileImports(contentFile, imports) {
+  const allImportsRegExp = /import (\w+,)? ?{[\w, ]+} from ('|"|`)+[a-zA-Z\.\/]+('|"|`)/g
+  const allImports = contentFile.match(allImportsRegExp)
+  if (allImports !== null) {
+    allImports.forEach(x => {
+      const dynamicImport = imports.find(y => y.allImport === x).dynamicImport
+      console.log(dynamicImport);
+      contentFile = contentFile.replace(x, dynamicImport)
+    })
+  }
+  return contentFile;
+}
+
 export async function formatComponent(contentFile) {
   let html = "";
-  formatImportsRegExp(contentFile)
   const dashsEliminated = contentFile
     .replace("---", "return `<!DOCTYPE html>")
     .replace("---", "`");
+
   const htmlEdited = formatHTMLInJS(dashsEliminated);
-  
+
+  const allImportsFormated = formatImportsRegExp(htmlEdited);
+
+  const allImportsChanged = changeFileImports(htmlEdited, allImportsFormated)
+  console.log('allImportsChanged: ', allImportsChanged);
+
   const usingFunction = `async function usingAsyncFunction() {
-    ${htmlEdited}
+    ${allImportsChanged}
   }
   html = usingAsyncFunction()
   `;
