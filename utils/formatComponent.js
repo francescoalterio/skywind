@@ -11,20 +11,22 @@ function formatHTMLInJS(contentFile) {
 }
 
 function formatImportsRegExp(contentFile) {
-  const allImportsRegExp = /import (\w+,)? ?{?[\w, ]+?}? from ('|"|`)+[a-zA-Z\.\/]+('|"|`)/g
+  const allImportsRegExp = /import (\w+,)? ?{?[\w, ]+?}? from ('|"|`)+[a-zA-Z\.\/\:]+('|"|`);?/g
   const allImports = contentFile.match(allImportsRegExp)
   if(allImports !== null) {
     const allImportsWithNamedImports = allImports.map(x => {
       const regExpNamedImports = /{[\w, ]+}/g
       const regExpPredeterminedImports = /import [\w,]+/g
       const predeterminedImport = x.match(regExpPredeterminedImports)
-      const regExpPath = /('|"|`)[\w.\/]+('|"|`)/g
+      const regExpPath = /('|"|`)[\w.\/\:]+('|"|`)/g
 
-      const namedImports = x.match(regExpNamedImports)[0]
+      const namedImports = x.match(regExpNamedImports) !== null ? x.match(regExpNamedImports)[0] : undefined
       const allImport = x
       const defaultImport = predeterminedImport !== null ? predeterminedImport[0].replace('import ', '').replace(',', '') : undefined
       const path = `'../../../${x.match(regExpPath)[0].replace(/['"`]/g, '')}'`
-      const dynamicImportWithPredeterminatedImport = defaultImport ? namedImports.replace('}', `, default: ${defaultImport}}`) : namedImports
+      const dynamicImportWithPredeterminatedImport = defaultImport && namedImports 
+      ? namedImports.replace('}', `, default: ${defaultImport}}`) 
+      : defaultImport ? `{default: ${defaultImport}}` : namedImports
       const dynamicImport = `const ${dynamicImportWithPredeterminatedImport} = await import(${path})`
 
       return {
@@ -40,7 +42,7 @@ function formatImportsRegExp(contentFile) {
 }
 
 function changeFileImports(contentFile, imports) {
-  const allImportsRegExp = /import (\w+,)? ?{[\w, ]+} from ('|"|`)+[a-zA-Z\.\/]+('|"|`)/g
+  const allImportsRegExp = /import (\w+,)? ?{?[\w, ]+?}? from ('|"|`)+[a-zA-Z\.\/\:]+('|"|`);?/g
   const allImports = contentFile.match(allImportsRegExp)
   if (allImports !== null) {
     allImports.forEach(x => {
