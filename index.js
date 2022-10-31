@@ -18,7 +18,7 @@ export default function createApp(host = 'localhost', port = 8000) {
         res.write(html);
         res.end();
       } else {
-        const contentPage = await getFileContent("./simulation/pages/404.js");
+        const contentPage = await getFileContent("pages/404.js");
         const html = await formatComponent(contentPage);
         res.end(html);
       }
