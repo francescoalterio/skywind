@@ -8,7 +8,7 @@ export default function createApp(host = 'localhost', port = 8000) {
     const { method, url } = req;
 
     if (method === "GET") {
-      const allPages = await getRoutePaths("./simulation/pages");
+      const allPages = await getRoutePaths("pages");
       const myPage = allPages.find((x) => x.url === url && x.type === "file");
       if (myPage) {
         const contentPage = await getFileContent(myPage.path);
