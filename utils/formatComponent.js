@@ -23,7 +23,7 @@ function formatImportsRegExp(contentFile) {
       const namedImports = x.match(regExpNamedImports) !== null ? x.match(regExpNamedImports)[0] : undefined
       const allImport = x
       const defaultImport = predeterminedImport !== null ? predeterminedImport[0].replace('import ', '').replace(',', '') : undefined
-      const path = `'../../../${x.match(regExpPath)[0].replace(/['"`]/g, '')}'`
+      const path = `'${x.match(regExpPath)[0].charAt(1) === '/' ? "../../.." : ""}${x.match(regExpPath)[0].replace(/['"`]/g, '')}'`
       const dynamicImportWithPredeterminatedImport = defaultImport && namedImports 
       ? namedImports.replace('}', `, default: ${defaultImport}}`) 
       : defaultImport ? `{default: ${defaultImport}}` : namedImports
