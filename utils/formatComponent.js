@@ -11,7 +11,7 @@ function formatHTMLInJS(contentFile) {
 }
 
 function formatImportsRegExp(contentFile) {
-  const allImportsRegExp = /import (\w+,)? ?{[\w, ]+} from ('|"|`)+[a-zA-Z\.\/]+('|"|`)/g
+  const allImportsRegExp = /import (\w+,)? ?{?[\w, ]+?}? from ('|"|`)+[a-zA-Z\.\/]+('|"|`)/g
   const allImports = contentFile.match(allImportsRegExp)
   if(allImports !== null) {
     const allImportsWithNamedImports = allImports.map(x => {
