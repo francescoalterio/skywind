@@ -13,29 +13,30 @@ function formatHTMLInJS(contentFile) {
 function formatImportsRegExp(contentFile) {
   const allImportsRegExp = /import (\w+,)? ?{[\w, ]+} from ('|"|`)+[a-zA-Z\.\/]+('|"|`)/g
   const allImports = contentFile.match(allImportsRegExp)
-  console.log(allImports)
-  const allImportsWithNamedImports = allImports.map(x => {
-    const regExpNamedImports = /{[\w, ]+}/g
-    const regExpPredeterminedImports = /import [\w,]+/g
-    const predeterminedImport = x.match(regExpPredeterminedImports)
-    const regExpPath = /('|"|`)[\w.\/]+('|"|`)/g
+  if(allImports !== null) {
+    const allImportsWithNamedImports = allImports.map(x => {
+      const regExpNamedImports = /{[\w, ]+}/g
+      const regExpPredeterminedImports = /import [\w,]+/g
+      const predeterminedImport = x.match(regExpPredeterminedImports)
+      const regExpPath = /('|"|`)[\w.\/]+('|"|`)/g
 
-    const namedImports = x.match(regExpNamedImports)[0]
-    const allImport = x
-    const defaultImport = predeterminedImport !== null ? predeterminedImport[0].replace('import ', '').replace(',', '') : undefined
-    const path = x.match(regExpPath)[0]
-    const dynamicImportWithPredeterminatedImport = defaultImport ? namedImports.replace('}', `, default: ${defaultImport}}`) : namedImports
-    const dynamicImport = `const ${dynamicImportWithPredeterminatedImport} = await import(${path})`
+      const namedImports = x.match(regExpNamedImports)[0]
+      const allImport = x
+      const defaultImport = predeterminedImport !== null ? predeterminedImport[0].replace('import ', '').replace(',', '') : undefined
+      const path = x.match(regExpPath)[0]
+      const dynamicImportWithPredeterminatedImport = defaultImport ? namedImports.replace('}', `, default: ${defaultImport}}`) : namedImports
+      const dynamicImport = `const ${dynamicImportWithPredeterminatedImport} = await import(${path})`
 
-    return {
-      namedImports,
-      defaultImport,
-      path,
-      dynamicImport,
-      allImport
-    }
-  })
+      return {
+        namedImports,
+        defaultImport,
+        path,
+        dynamicImport,
+        allImport
+      }
+    })
   return allImportsWithNamedImports
+  }
 }
 
 function changeFileImports(contentFile, imports) {
@@ -56,11 +57,8 @@ export async function formatComponent(contentFile) {
   const dashsEliminated = contentFile
     .replace("<>", "return `<!DOCTYPE html>")
     .replace("</>", "`");
-
   const htmlEdited = formatHTMLInJS(dashsEliminated);
-
   const allImportsFormated = formatImportsRegExp(htmlEdited);
-
   const allImportsChanged = changeFileImports(htmlEdited, allImportsFormated)
   const usingFunction = `async function usingAsyncFunction() {
     ${allImportsChanged}
