@@ -21,7 +21,9 @@ export default class Skywind {
         } else {
           const contentPage = await getFileContent("pages/404.js");
           const html = await ComponentFormatter.formatComponent(contentPage);
-          res.end(html);
+          res.writeHeader(404, { "Content-Type": "text/html" });
+          res.write(html);
+          res.end();
         }
       }
     });
@@ -29,6 +31,15 @@ export default class Skywind {
     server.listen(port, host, () => {
       console.log(`Server is running on http://${host}:${port}`);
     });
+  }
+
+  static importComponent(path) {
+    return async function (props) {
+      console.log(path);
+      const contentPage = await getFileContent(`.${path}`);
+      const html = await ComponentFormatter.formatComponent(contentPage, props);
+      return html
+    }
   }
 }
 

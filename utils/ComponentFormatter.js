@@ -55,10 +55,10 @@ export default class ComponentFormatter {
     return contentFile;
   }
   
-  static formatComponent(contentFile) {
+  static formatComponent(contentFile, props = {}) {
     let html = "";
     const dashsEliminated = contentFile
-      .replace("<>", "return `<!DOCTYPE html>")
+      .replace("<>", "return `")
       .replace("</>", "`");
     const htmlEdited = this.formatHTMLInJS(dashsEliminated);
     const allImportsFormated = this.formatImportsRegExp(htmlEdited);
