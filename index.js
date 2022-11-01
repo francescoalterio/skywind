@@ -1,5 +1,5 @@
 import http, { Server } from "http";
-import { formatComponent } from "./utils/formatComponent.js";
+import ComponentFormatter from "./utils/ComponentFormatter.js";
 import { getFileContent } from "./utils/getFileContent.js";
 import { getRoutePaths } from "./utils/getRoutePaths.js";
 
@@ -12,14 +12,14 @@ export default function createApp(host = 'localhost', port = 8000) {
       const myPage = allPages.find((x) => x.url === url && x.type === "file");
       if (myPage) {
         const contentPage = await getFileContent(myPage.path);
-        const html = await formatComponent(contentPage);
+        const html = await ComponentFormatter.formatComponent(contentPage);
         console.log(html);
         res.writeHeader(200, { "Content-Type": "text/html" });
         res.write(html);
         res.end();
       } else {
         const contentPage = await getFileContent("pages/404.js");
-        const html = await formatComponent(contentPage);
+        const html = await ComponentFormatter.formatComponent(contentPage);
         res.end(html);
       }
     }
