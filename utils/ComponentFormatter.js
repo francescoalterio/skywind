@@ -56,7 +56,17 @@ export default class ComponentFormatter {
   }
 
   static formatComponentProps(componentBody) {
-
+    const allPropsRegExp = /\w+=['"`{][\w{}'"`\s!@#$%^*()_+\[\],.]+['"`}]+/g
+    const allProps = componentBody.match(allPropsRegExp)
+    let props = '{';
+    if(allProps !== null) {
+      allProps.forEach(x => {
+        const removeKeys = x.replace('{', '').replace('}', '')
+        const changeEqualForTwoPoints = removeKeys.replace('=', ':')
+        props += ` ${changeEqualForTwoPoints},`
+      })
+    }
+    return `${props}}`
   }
 
   static formatComponentSyntax(contentFile) {
@@ -66,7 +76,9 @@ export default class ComponentFormatter {
       allComponents.forEach(x => {
         const componentNameRegExp = /<[A-Z]\w+/g
         const componentName = x.match(componentNameRegExp)[0].replace('<', '')
-        const componentFormatted = '${' + `await ${componentName}()` + '}'
+        const propsFormatted = this.formatComponentProps(x)
+        console.log("***********",propsFormatted);
+        const componentFormatted = '${' + `await ${componentName}(${propsFormatted})` + '}'
         contentFile = contentFile.replace(x, componentFormatted)
       })
     }
