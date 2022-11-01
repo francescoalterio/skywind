@@ -55,12 +55,16 @@ export default class ComponentFormatter {
     return contentFile;
   }
 
+  static formatComponentProps(componentBody) {
+
+  }
+
   static formatComponentSyntax(contentFile) {
-    const allComponentsRegExp = /<[A-Z][a-zA-Z0-9]+.+\/>/g
+    const allComponentsRegExp = /<[A-Z]\w+.+\/>/g
     const allComponents = contentFile.match(allComponentsRegExp)
     if (allComponents !== null) {
       allComponents.forEach(x => {
-        const componentNameRegExp = /<[A-Z][a-zA-Z0-9]+/g
+        const componentNameRegExp = /<[A-Z]\w+/g
         const componentName = x.match(componentNameRegExp)[0].replace('<', '')
         const componentFormatted = '${' + `await ${componentName}()` + '}'
         contentFile = contentFile.replace(x, componentFormatted)
