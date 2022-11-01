@@ -54,6 +54,21 @@ export default class ComponentFormatter {
     }
     return contentFile;
   }
+
+  static formatComponentSyntax(contentFile) {
+    const allComponentsRegExp = /<[A-Z][a-zA-Z0-9]+.+\/>/g
+    const allComponents = contentFile.match(allComponentsRegExp)
+    if (allComponents !== null) {
+      allComponents.forEach(x => {
+        const componentNameRegExp = /<[A-Z][a-zA-Z0-9]+/g
+        const componentName = x.match(componentNameRegExp)[0].replace('<', '')
+        const componentFormatted = '${' + `await ${componentName}()` + '}'
+        contentFile = contentFile.replace(x, componentFormatted)
+      })
+    }
+
+    return contentFile
+  }
   
   static formatComponent(contentFile, props = {}) {
     let html = "";
@@ -63,8 +78,10 @@ export default class ComponentFormatter {
     const htmlEdited = this.formatHTMLInJS(dashsEliminated);
     const allImportsFormated = this.formatImportsRegExp(htmlEdited);
     const allImportsChanged = this.changeFileImports(htmlEdited, allImportsFormated)
+    const allComponentsChanged = this.formatComponentSyntax(allImportsChanged)
+    console.log(allComponentsChanged);
     const usingFunction = `async function usingAsyncFunction() {
-      ${allImportsChanged}
+      ${allComponentsChanged}
     }
     html = usingAsyncFunction()
     `;
