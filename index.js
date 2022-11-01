@@ -41,6 +41,11 @@ export default class Skywind {
       return html
     }
   }
+  
+  static async importStylesheet(path) {
+    const contentPage = await getFileContent(`.${path}`);
+    return contentPage
+  }
 }
 
 

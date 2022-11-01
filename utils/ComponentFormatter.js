@@ -85,6 +85,19 @@ export default class ComponentFormatter {
 
     return contentFile
   }
+
+  static formatImportStylesheet (contentFile) {
+    const allStylesheetsRegExp = /Skywind\.importStylesheet.+/g
+    const allStylesheets = contentFile.match(allStylesheetsRegExp)
+    if (allStylesheets!== null) {
+      allStylesheets.forEach(x => {
+        const styleBody = '<style type="text/css"> ${await ' + x +'}</style>'
+        contentFile = contentFile.replace(x, "");
+        contentFile = contentFile.replace('return `', 'return `' + styleBody)
+      })
+    }
+    return contentFile
+  }
   
   static formatComponent(contentFile, props = {}) {
     let html = "";
@@ -95,9 +108,10 @@ export default class ComponentFormatter {
     const allImportsFormated = this.formatImportsRegExp(htmlEdited);
     const allImportsChanged = this.changeFileImports(htmlEdited, allImportsFormated)
     const allComponentsChanged = this.formatComponentSyntax(allImportsChanged)
-    console.log(allComponentsChanged);
+    const allStylesheetsFormated = this.formatImportStylesheet(allComponentsChanged)
+    console.log(allStylesheetsFormated);
     const usingFunction = `async function usingAsyncFunction() {
-      ${allComponentsChanged}
+      ${allStylesheetsFormated}
     }
     html = usingAsyncFunction()
     `;
