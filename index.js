@@ -7,8 +7,22 @@ export default class Skywind {
   static createApp(host = 'localhost', port = 8000) {
     const server = http.createServer(async (req, res) => {
       const { method, url } = req;
-  
-      if (method === "GET") {
+      
+      if(url.indexOf('/api') === 0) {
+        const allEndpoints = await getRoutePaths("pages/api");
+        console.log(allEndpoints);
+        const myEndpoint = allEndpoints.find((x) => {
+          const newUrl = url.replace('/api', '')
+          console.log('erwe', x.url);
+          if(x.url === '/' && newUrl === '' && x.type === "file") return true
+          return x.url === newUrl && x.type === "file"
+        });
+        if(myEndpoint) {
+          const {default: apiFunction} = await import(`../../${myEndpoint.path}`);
+          apiFunction(req, res);
+          return;
+        }
+      } else if (method === "GET" && url.indexOf('/api') === -1) {
         const allPages = await getRoutePaths("pages");
         const myPage = allPages.find((x) => x.url === url && x.type === "file");
         if (myPage) {
@@ -27,6 +41,8 @@ export default class Skywind {
         }
       }
     });
+  
+      
   
     server.listen(port, host, () => {
       console.log(`Server is running on http://${host}:${port}`);
