@@ -1,11 +1,13 @@
 import fs from 'fs';
 import fsExtra from 'fs-extra'
 import path from 'path';
+import { getRoutePaths } from './utils/getRoutePaths.js'
+import { getFileContent } from "./utils/getFileContent.js";
 
 export default class Compiler {
     static async getAllFilePaths(rootPath) {
         const allDirFiles = await fs.promises.readdir(rootPath);
-        const removeNode_Modules = allDirFiles.filter(x => x !== 'node_modules');
+        const removeNode_Modules = allDirFiles.filter(x => x !== 'node_modules' && x !== 'build');
         const allPaths = removeNode_Modules.map(x => {
             const filePath = {
                 path: path.join(rootPath, x),
@@ -35,9 +37,20 @@ export default class Compiler {
         })
     }
 
+    static async getAllComponentsToFormat(dirPath) {
+        const allPages = await getRoutePaths(path.join(dirPath, 'pages'))
+        const AllPageFiles = allPages.filter(x => x.type === 'file')
+        const allComponents = await getRoutePaths(path.join(dirPath, 'components'))
+        const AllComponentFiles = allComponents.filter(x => x.type === 'file')
+        return [...AllPageFiles,...AllComponentFiles]
+    }
+
     static async compile(rootProjectPath) {
         const allFilePaths = await this.getAllFilePaths(rootProjectPath)
         await this.createBuildDir(rootProjectPath)
         await this.copyAllFilesIntoBuildDir(rootProjectPath, allFilePaths)
+        const allComponents = await this.getAllComponentsToFormat(path.join(rootProjectPath, 'build'))
+        const fileContent = await getFileContent(allComponents[0].path)
+        console.log(fileContent);
     }
 }
