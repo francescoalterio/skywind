@@ -2,8 +2,10 @@ import http, { Server } from "http";
 import ComponentFormatter from "./utils/ComponentFormatter.js";
 import { getFileContent } from "./utils/getFileContent.js";
 import { getRoutePaths } from "./utils/getRoutePaths.js";
+import path from "path";
 
 import Compiler from "./Compiler.js"
+import { ChildProcess } from "child_process";
 
 export default class Skywind {
   static createApp(host = 'localhost', port = 8000, rootPath) {
@@ -20,15 +22,17 @@ export default class Skywind {
           return x.url === newUrl && x.type === "file"
         });
         if(myEndpoint) {
-          const {default: apiFunction} = await import(`${myEndpoint.path}`);
+          const {default: apiFunction} = await import(`../../${myEndpoint.path}`);
           apiFunction(req, res);
           return;
         }
       } else if (method === "GET" && url.indexOf('/api') === -1) {
-        const allPages = await getRoutePaths("pages");
+        console.log('tus nalgas');
+        const allPages = await getRoutePaths('pages');
+        console.log(allPages);
         const myPage = allPages.find((x) => x.url === url && x.type === "file");
         if (myPage) {
-          const {default: contentPage} = await import(myPage.path);
+          const {default: contentPage} = await import(`../../${myPage.path}`);
           console.log(await contentPage());
           res.writeHeader(200, { "Content-Type": "text/html" });
           res.write(await contentPage());
