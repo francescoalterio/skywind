@@ -3,6 +3,7 @@ import fsExtra from 'fs-extra'
 import path from 'path';
 import { getRoutePaths } from './utils/getRoutePaths.js'
 import { getFileContent } from "./utils/getFileContent.js";
+import ComponentFormatter from "./utils/ComponentFormatter.js";
 
 export default class Compiler {
     static async getAllFilePaths(rootPath) {
@@ -45,12 +46,22 @@ export default class Compiler {
         return [...AllPageFiles,...AllComponentFiles]
     }
 
+    static async formatAllComponents(components) {
+        components.forEach(async x => {
+            const { path: componentPath } = x;
+            const contentFile = await getFileContent(componentPath)
+            const componentFormated = ComponentFormatter.formatComponent(contentFile)
+            await fs.promises.writeFile(componentPath, componentFormated, "ascii")
+        })
+    }
+
     static async compile(rootProjectPath) {
         const allFilePaths = await this.getAllFilePaths(rootProjectPath)
         await this.createBuildDir(rootProjectPath)
         await this.copyAllFilesIntoBuildDir(rootProjectPath, allFilePaths)
         const allComponents = await this.getAllComponentsToFormat(path.join(rootProjectPath, 'build'))
-        const fileContent = await getFileContent(allComponents[0].path)
-        console.log(fileContent);
+        const removeApis = allComponents.filter(x => x.url.indexOf('/api') === -1)
+        console.log(removeApis);
+        await this.formatAllComponents(removeApis)
     }
 }

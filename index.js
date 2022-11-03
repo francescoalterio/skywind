@@ -6,7 +6,7 @@ import { getRoutePaths } from "./utils/getRoutePaths.js";
 import Compiler from "./Compiler.js"
 
 export default class Skywind {
-  static createApp(host = 'localhost', port = 8000) {
+  static createApp(host = 'localhost', port = 8000, rootPath) {
     const server = http.createServer(async (req, res) => {
       const { method, url } = req;
       
@@ -20,7 +20,7 @@ export default class Skywind {
           return x.url === newUrl && x.type === "file"
         });
         if(myEndpoint) {
-          const {default: apiFunction} = await import(`../../${myEndpoint.path}`);
+          const {default: apiFunction} = await import(`${myEndpoint.path}`);
           apiFunction(req, res);
           return;
         }
@@ -28,11 +28,10 @@ export default class Skywind {
         const allPages = await getRoutePaths("pages");
         const myPage = allPages.find((x) => x.url === url && x.type === "file");
         if (myPage) {
-          const contentPage = await getFileContent(myPage.path);
-          const html = await ComponentFormatter.formatComponent(contentPage);
-          console.log(html);
+          const {default: contentPage} = await import(myPage.path);
+          console.log(await contentPage());
           res.writeHeader(200, { "Content-Type": "text/html" });
-          res.write(html);
+          res.write(await contentPage());
           res.end();
         } else {
           const contentPage = await getFileContent("pages/404.js");
@@ -49,20 +48,6 @@ export default class Skywind {
     server.listen(port, host, () => {
       console.log(`Server is running on http://${host}:${port}`);
     });
-  }
-
-  static importComponent(path) {
-    return async function (props) {
-      console.log(path);
-      const contentPage = await getFileContent(`.${path}`);
-      const html = await ComponentFormatter.formatComponent(contentPage, props);
-      return html
-    }
-  }
-  
-  static async importStylesheet(path) {
-    const contentPage = await getFileContent(`.${path}`);
-    return contentPage
   }
 }
 

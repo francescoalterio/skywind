@@ -11,49 +11,6 @@ export default class ComponentFormatter {
     }
   }
   
-  static formatImportsRegExp(contentFile) {
-    const allImportsRegExp = /import (\w+,)? ?{?[\w, ]+?}? from ('|"|`)+[a-zA-Z\.\/\:]+('|"|`);?/g
-    const allImports = contentFile.match(allImportsRegExp)
-    if(allImports !== null) {
-      const allImportsWithNamedImports = allImports.map(x => {
-        const regExpNamedImports = /{[\w, ]+}/g
-        const regExpPredeterminedImports = /import [\w,]+/g
-        const predeterminedImport = x.match(regExpPredeterminedImports)
-        const regExpPath = /('|"|`)[\w.\/\:]+('|"|`)/g
-  
-        const namedImports = x.match(regExpNamedImports) !== null ? x.match(regExpNamedImports)[0] : undefined
-        const allImport = x
-        const defaultImport = predeterminedImport !== null ? predeterminedImport[0].replace('import ', '').replace(',', '') : undefined
-        const path = `'${x.match(regExpPath)[0].charAt(1) === '/' ? "../../.." : ""}${x.match(regExpPath)[0].replace(/['"`]/g, '')}'`
-        const dynamicImportWithPredeterminatedImport = defaultImport && namedImports 
-        ? namedImports.replace('}', `, default: ${defaultImport}}`) 
-        : defaultImport ? `{default: ${defaultImport}}` : namedImports
-        const dynamicImport = `const ${dynamicImportWithPredeterminatedImport} = await import(${path})`
-  
-        return {
-          namedImports,
-          defaultImport,
-          path,
-          dynamicImport,
-          allImport
-        }
-      })
-    return allImportsWithNamedImports
-    }
-  }
-  
-  static changeFileImports(contentFile, imports) {
-    const allImportsRegExp = /import (\w+,)? ?{?[\w, ]+?}? from ('|"|`)+[a-zA-Z\.\/\:]+('|"|`);?/g
-    const allImports = contentFile.match(allImportsRegExp)
-    if (allImports !== null) {
-      allImports.forEach(x => {
-        const dynamicImport = imports.find(y => y.allImport === x).dynamicImport
-        console.log(dynamicImport);
-        contentFile = contentFile.replace(x, dynamicImport)
-      })
-    }
-    return contentFile;
-  }
 
   static formatComponentProps(componentBody) {
     const allPropsRegExp = /\w+=['"`{][\w{}'"`\s!@#$%^*()_+\[\],.]+['"`}]+/g
@@ -98,25 +55,38 @@ export default class ComponentFormatter {
     }
     return contentFile
   }
+
+  static getAllImports(contentFile) {
+    const getAllImportsRegExp = /import (\w+,)? ?{?[\w, ]+?}? from ('|"|`)+.+('|"|`);?/g
+    const allImports = contentFile.match(getAllImportsRegExp)
+    if(allImports !== null) {
+      const removeSemicolon = allImports.map(x => x.replace(';', ''))
+      const joinAllImports = removeSemicolon.join(';\n')
+      const removeImportsInContentFile = contentFile.replace(getAllImportsRegExp, '')
+      return { 
+        removeImportsInContentFile,
+        allImports: joinAllImports
+      }
+    }
+    return {removeImportsInContentFile: contentFile, allImports: ''}
+  }
   
   static formatComponent(contentFile, props = {}) {
-    let html = "";
     const dashsEliminated = contentFile
       .replace("<>", "return `")
       .replace("</>", "`");
     const htmlEdited = this.formatHTMLInJS(dashsEliminated);
-    const allImportsFormated = this.formatImportsRegExp(htmlEdited);
-    const allImportsChanged = this.changeFileImports(htmlEdited, allImportsFormated)
-    const allComponentsChanged = this.formatComponentSyntax(allImportsChanged)
-    const allStylesheetsFormated = this.formatImportStylesheet(allComponentsChanged)
-    console.log(allStylesheetsFormated);
-    const usingFunction = `async function usingAsyncFunction() {
-      ${allStylesheetsFormated}
-    }
-    html = usingAsyncFunction()
-    `;
-    eval(usingFunction);
-    return html;
+    const { removeImportsInContentFile, allImports } = this.getAllImports(htmlEdited)
+    const allComponentsChanged = this.formatComponentSyntax(removeImportsInContentFile)
+    console.log(allComponentsChanged);
+    const usingFunction = `
+    ${allImports}
+    export default async function usingAsyncFunction(props) {
+      ${allComponentsChanged}
+    }`;
+
+    console.log('*** ALL COMPONENT ***: ', usingFunction);
+    return usingFunction 
   }
   
 }
