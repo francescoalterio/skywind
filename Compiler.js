@@ -1,4 +1,5 @@
 import fs from 'fs';
+import fsExtra from 'fs-extra'
 import path from 'path';
 
 export default class Compiler {
@@ -25,11 +26,9 @@ export default class Compiler {
     static async copyAllFilesIntoBuildDir(rootPath, files) {
         files.forEach(async x => {
             try {
-                
                 const FilePath = path.join(rootPath, "build", x.name)
                 await fs.promises.access(path.join(rootPath, 'build'), fs.constants.W_OK);
-                await fs.promises.copy(x.path, FilePath)
-                console.log("erwe");
+                await fsExtra.copy(x.path, FilePath)
             } catch(e) {
                 console.log(e);
             }
@@ -38,7 +37,6 @@ export default class Compiler {
 
     static async compile(rootProjectPath) {
         const allFilePaths = await this.getAllFilePaths(rootProjectPath)
-        console.log("erwe");
         await this.createBuildDir(rootProjectPath)
         await this.copyAllFilesIntoBuildDir(rootProjectPath, allFilePaths)
     }
