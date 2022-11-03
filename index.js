@@ -3,6 +3,8 @@ import ComponentFormatter from "./utils/ComponentFormatter.js";
 import { getFileContent } from "./utils/getFileContent.js";
 import { getRoutePaths } from "./utils/getRoutePaths.js";
 
+import Compiler from "./Compiler.js"
+
 export default class Skywind {
   static createApp(host = 'localhost', port = 8000) {
     const server = http.createServer(async (req, res) => {
@@ -64,4 +66,5 @@ export default class Skywind {
   }
 }
 
+export {Compiler}
 

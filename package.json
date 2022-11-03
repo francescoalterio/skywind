@@ -1,6 +1,6 @@
 {
   "name": "skywind",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "type": "module",
   "description": "",
   "main": "index.js",
@@ -14,6 +14,7 @@
     "nodemon": "^2.0.20"
   },
   "dependencies": {
+    "fs-extra": "^10.1.0",
     "node-fetch": "^3.2.10"
   }
 }
