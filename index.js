@@ -5,7 +5,6 @@ import { getRoutePaths } from "./utils/getRoutePaths.js";
 import path from "path";
 
 import Compiler from "./Compiler.js"
-import { ChildProcess } from "child_process";
 
 export default class Skywind {
   static createApp(host = 'localhost', port = 8000, rootPath) {

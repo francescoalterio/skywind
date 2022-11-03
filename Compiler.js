@@ -30,10 +30,11 @@ export default class Compiler {
         files.forEach(async x => {
             try {
                 const FilePath = path.join(rootPath, "build", x.name)
-                await fs.promises.access(path.join(rootPath, 'build'), fs.constants.W_OK);
+                console.log(x.path);
                 await fsExtra.copy(x.path, FilePath)
+                
             } catch(e) {
-                console.log(e);
+                console.log('erwe error: ', e);
             }
         })
     }
@@ -59,9 +60,17 @@ export default class Compiler {
         const allFilePaths = await this.getAllFilePaths(rootProjectPath)
         await this.createBuildDir(rootProjectPath)
         await this.copyAllFilesIntoBuildDir(rootProjectPath, allFilePaths)
-        const allComponents = await this.getAllComponentsToFormat(path.join(rootProjectPath, 'build'))
-        const removeApis = allComponents.filter(x => x.url.indexOf('/api') === -1)
-        console.log(removeApis);
-        await this.formatAllComponents(removeApis)
+        let dirEmpty = true
+        let myInterval = setInterval(async () => {
+            const pageExist = await fsExtra.pathExists(path.join(rootProjectPath, 'build', 'pages'))
+            if(pageExist) {
+                const allComponents = await this.getAllComponentsToFormat(path.join(rootProjectPath, 'build'))
+                const removeApis = allComponents.filter(x => x.url.indexOf('/api') === -1)
+                console.log(removeApis);
+                await this.formatAllComponents(removeApis)
+                clearInterval(myInterval)
+            }
+        }, 1000)
+        
     }
 }
