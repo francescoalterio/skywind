@@ -13,10 +13,8 @@ export default class Skywind {
       
       if(url.indexOf('/api') === 0) {
         const allEndpoints = await getRoutePaths("pages/api");
-        console.log(allEndpoints);
         const myEndpoint = allEndpoints.find((x) => {
           const newUrl = url.replace('/api', '')
-          console.log('erwe', x.url);
           if(x.url === '/' && newUrl === '' && x.type === "file") return true
           return x.url === newUrl && x.type === "file"
         });
@@ -26,13 +24,10 @@ export default class Skywind {
           return;
         }
       } else if (method === "GET" && url.indexOf('/api') === -1) {
-        console.log('tus nalgas');
         const allPages = await getRoutePaths('pages');
-        console.log(allPages);
         const myPage = allPages.find((x) => x.url === url && x.type === "file");
         if (myPage) {
           const {default: contentPage} = await import(`../../${myPage.path}`);
-          console.log(await contentPage());
           res.writeHeader(200, { "Content-Type": "text/html" });
           res.write(await contentPage());
           res.end();
