@@ -47,6 +47,11 @@ export default class Skywind {
       console.log(`Server is running on http://${host}:${port}`);
     });
   }
+
+  static async importStylesheet(path) {
+    const contentPage = await getFileContent(path);
+    return contentPage
+  }
 }
 
 export {Compiler}

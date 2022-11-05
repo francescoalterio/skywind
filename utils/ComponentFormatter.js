@@ -34,7 +34,6 @@ export default class ComponentFormatter {
         const componentNameRegExp = /<[A-Z]\w+/g
         const componentName = x.match(componentNameRegExp)[0].replace('<', '')
         const propsFormatted = this.formatComponentProps(x)
-        console.log("***********",propsFormatted);
         const componentFormatted = '${' + `await ${componentName}(${propsFormatted})` + '}'
         contentFile = contentFile.replace(x, componentFormatted)
       })
@@ -48,7 +47,8 @@ export default class ComponentFormatter {
     const allStylesheets = contentFile.match(allStylesheetsRegExp)
     if (allStylesheets!== null) {
       allStylesheets.forEach(x => {
-        const styleBody = '<style type="text/css"> ${await ' + x +'}</style>'
+        const getPath = x.match(/('|"|`).+('|"|`)/g)
+        const styleBody = '<style type="text/css"> ${await ' + `Skywind.importStylesheet('./styles/${getPath[0].replace(/('|"|`)/g, "")}')` +'}</style>'
         contentFile = contentFile.replace(x, "");
         contentFile = contentFile.replace('return `', 'return `' + styleBody)
       })
@@ -78,14 +78,13 @@ export default class ComponentFormatter {
     const htmlEdited = this.formatHTMLInJS(dashsEliminated);
     const { removeImportsInContentFile, allImports } = this.getAllImports(htmlEdited)
     const allComponentsChanged = this.formatComponentSyntax(removeImportsInContentFile)
-    console.log(allComponentsChanged);
+    const stylesFormated = this.formatImportStylesheet(allComponentsChanged)
     const usingFunction = `
     ${allImports}
     export default async function usingAsyncFunction(props) {
-      ${allComponentsChanged}
+      ${stylesFormated}
     }`;
 
-    console.log('*** ALL COMPONENT ***: ', usingFunction);
     return usingFunction 
   }
   

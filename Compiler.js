@@ -34,7 +34,7 @@ export default class Compiler {
                 await fsExtra.copy(x.path, FilePath)
                 
             } catch(e) {
-                console.log('erwe error: ', e);
+                console.log('error: ', e);
             }
         })
     }
@@ -66,13 +66,10 @@ export default class Compiler {
                 const allComponents = await this.getAllComponentsToFormat(path.join(rootProjectPath, 'build'))
                 const removeApis = allComponents.filter(x => x.url.indexOf('/api') === -1)
                 await this.formatAllComponents(removeApis)
-                exec(`node ${path.join(rootProjectPath, "build", "index.js")}`, (error, stdout, stderr) => {
-                    console.log("^^^^^^^^^ STDOUT: ", stdout);
-                    console.log("^^^^^^^^^ STDERR: ", stderr);
+                exec(`node ${path.join(rootProjectPath, "build", "index.js")}`, (error, stdout, stderr) => {  
                     if(error!== null) {
                         console.log(error);
                     }
-                    console.log('&&&&&&&&&& COMANDO EJECUTADO &&&&&&&&&&&&&');
                 })
                 clearInterval(myInterval)
             }
