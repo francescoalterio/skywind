@@ -151,6 +151,25 @@ const hello = 'Hello world';
 ```
 Para interpolar valores dentro del HTML podemos hacerlo utilizando la sintaxis de los Template Strings "${}".
 
+Si necesitamos renderizar un HTML u otro dependiendo de una condicion, podemos utilizar el operador ternario de Javascript de la sigiente manera:
+
+```jsx
+const hello = 'Hello world';
+const bool = true;
+
+<>
+    <html>
+        <head></head>
+        <body>
+            <h1>This is the index</h1>
+            <p>${hello}</p>
+            ${bool ? <><p>Hello</p></> : <><p>World</p></>}
+        </body>
+    </html>
+</>
+```
+Debemos recordar que todo codigo HTML debe estar envuelo en <></>
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
