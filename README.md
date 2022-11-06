@@ -39,6 +39,7 @@
         <li><a href="#skywind-templates">Skywind Templates</a></li>
         <li><a href="#components">Components</a></li>
         <li><a href="#styles">Styles</a></li>
+        <li><a href="#api-folder">API Folder</a></li>
       </ul>
     </li>
     <li><a href="#roadmap">Roadmap</a></li>
@@ -301,7 +302,22 @@ See the [open issues](https://github.com/othneildrew/Best-README-Template/issues
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### API Folder
 
+Dentro de la carpeta pages existe otra carpeta con el nombre de api, esta carpeta posee un trato particular en el proyecto, ya que todos los archivos dentro de ella no son tomados como Skywind Templates, sino como endpoints con acceso a Request y Response.
+
+```js
+// pages/api/index.js
+
+export default function home(req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify({ a: 67 }));
+}
+```
+
+Cualquier archivo dentro de la carpeta api debe poseer una funcion que debe ser exportada de manera default, dicha funcion tiene acceso a dos parametros request y response, los cuales provienen del modulo HTTP de node.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
 ## Contributing
