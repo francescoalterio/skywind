@@ -99,7 +99,7 @@ Y por ultimo ya podemos iniciar nuestro servidor de desarrollo.
 
 ## Usage
 
-Luego de ejecutar todos los comandos e iniciar el servidor de desarrollo podemos pareciar una estructura de carpetas un poco peculiar.
+Luego de ejecutar todos los comandos e iniciar el servidor de desarrollo podemos apreciar una estructura de carpetas un poco peculiar.
 
 ![Product Name Screen Shot](https://raw.githubusercontent.com/francescoalterio/skywind-assets/master/folder-structure.png)
 
