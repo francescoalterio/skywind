@@ -37,6 +37,7 @@
         <li><a href="#folder-structure">Folder Structure</a></li>
         <li><a href="#pages-folder">Pages Folder</a></li>
         <li><a href="#skywind-templates">Skywind Templates</a></li>
+        <li><a href="#components">Components</a></li>
       </ul>
     </li>
     <li><a href="#roadmap">Roadmap</a></li>
@@ -210,7 +211,7 @@ const bool = false;
 </>
 ```
 
-Hemos creado un componente Button.js y los emos implementado en nuestra pagina principal.
+Hemos creado un componente Button.js y los hemos implementado en nuestra pagina principal.
 
 Lo primero que hemos creado fue el componente como cualquier otro Skywind Template, la unica diferencia es que estamos obteniendo un valor de un objeto props del cual aun no no tenemos informacion, pero no se preocupe, dentro de poco cobrará sentido.
 
