@@ -82,7 +82,7 @@ Cuando la plantilla del proyecto termine su instalacion, nos debemos dirijir a d
    npm install
    ```
 
-Luego de isntalar las dependencias, debemos construir la aplicacion utilizando el siguiente comando: 
+Luego de instalar las dependencias, debemos construir la aplicacion utilizando el siguiente comando: 
 
 * npm
    ```sh
