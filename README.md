@@ -111,9 +111,15 @@ La carpeta Pages es la mas importante de todas, es la carpeta que le da vida a t
 
 Como ya se mencionó, la carpeta pages no es una simple carpeta ya que esta define el enrutamiento de todo el proyecto.
 
-Al iniciar el proyecto esta carpeta posee un index.js, una carpeta api y dentro de la carpeta api otro index.js. Toda carpeta o archivo dentro de la carpeta pages se convierte automaticamente en una ruta. Ejemplo: si tenemos una carpeta store y dentro un archivo product.js, nustra web poseerá una ruta /store/product solo con crear los archivos y carpetas.
+Al iniciar el proyecto, esta carpeta posee un index.js, una carpeta api y dentro de la carpeta api otro index.js. Toda carpeta o archivo dentro de la carpeta pages se convierte automaticamente en una ruta. Ejemplo: si tenemos una carpeta store y dentro un archivo product.js, nustra web poseerá una ruta /store/product solo con crear los archivos y carpetas.
 
 Como se mencionó, la carpeta pages posee dentro una carpeta api, todos los archivos y carpetas fuera de la carpeta api podran renderizar HTML, y todos los archivos y carpetas dentro de api seran tratados como endpoints teniendo acceso a Request y Response.
+
+### Skywind Templates
+
+Todos los archivos dentro de la carpeta pages y fuera de la carpeta api son tratados como Skywind Templates.
+
+Los Skywind Templates son archivos capaces de ejecutar javascript en el lado del servidor y retornar un codigo HTML que será enviado al cliente para representar una pagina web.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
