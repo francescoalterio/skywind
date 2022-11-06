@@ -121,6 +121,19 @@ Todos los archivos dentro de la carpeta pages y fuera de la carpeta api son trat
 
 Los Skywind Templates son archivos capaces de ejecutar javascript en el lado del servidor y retornar un codigo HTML que será enviado al cliente para representar una pagina web.
 
+```jsx
+<>
+    <html>
+        <head></head>
+        <body>
+            <h1>This is the index</h1>
+        </body>
+    </html>
+</>
+```
+
+En todo Skywind Template para hacer referencia a codigo HTML debe utilizar los isguientes simbolos <></>, Todo codigo HTML dentro de estos simbolos será enviado al cliente.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
