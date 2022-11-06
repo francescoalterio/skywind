@@ -53,24 +53,24 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Skywind hace sencillo la creacion de pagians webs con Server Side Rendering y Javascript. Su sencilles y su poca cantidad de dependencias le permite ser ejecutado en cualquier servidor de node. Skywind le permite granular sus paginas a pequeños componentes que se pueden reutilizar en cualquier parte de su pagina web.
+Skywind hace sencillo la creacion de paginas webs con Server Side Rendering y Javascript. Su sencilles y su poca cantidad de dependencias le permite ser ejecutado en cualquier servidor de node. Skywind le permite granular sus paginas a pequeños componentes que se pueden reutilizar en cualquier parte de su pagina web.
 
-Posee un sistema de enrutamiento bastante intuitivo, poderoso y facil de aprender y tambien le permite la creacion de APIs utilizando el modulo HTTP de node.
+Posee un sistema de enrutamiento bastante intuitivo, poderoso y facil de aprender, tambien le permite la creacion de APIs utilizando el modulo HTTP de node.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Skywind cuenta con una plantilla de inicio la cual se llama Create Skywind App, la cual usaremos apra iniciar nuestro primer proyecto.
 
-### Prerequisites
+### Create a project
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
+Para crear nuestro primer proyecto debemos tener instalado node y npm, nos dirijiremos a la carpeta donde queramos crear nuestro proyecto y ejecutamos el sigiente comando: 
+
+* npx
   ```sh
-  npm install npm@latest -g
+  npx create-skywind-app@latest my-project
   ```
 
 ### Installation
