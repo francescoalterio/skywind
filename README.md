@@ -36,6 +36,7 @@
       <ul>
         <li><a href="#folder-structure">Folder Structure</a></li>
         <li><a href="#pages-folder">Pages Folder</a></li>
+        <li><a href="#skywind-templates">Skywind Templates</a></li>
       </ul>
     </li>
     <li><a href="#roadmap">Roadmap</a></li>
@@ -172,6 +173,73 @@ Debemos recordar que todo codigo HTML debe estar envuelo en <></>.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### Components
+
+Los componentes tambien son Skywind Templates, la diferencia de llamarlos componentes es que estos puedes ser guardados en cualquier carpeta del proyecto (Recomendamos utilizar la carpeta components que viene por defecto con create-skywind-app) excepto la carpeta pages y pueden ser reutilizados en diferentes paginas u otros componentes.
+
+Estos componentes tan solo poseen una regla a la hora de crearlos, el nombre del archivo será el del componente y este nombre debe poseer su primera letra en Mayusculas, veamos un ejemplo de un componente.
+
+```jsx
+// components/Button.js
+
+const { content } = props;
+
+<>
+    <button>${content}</button>
+</>
+```
+
+```jsx
+// pages/index.js
+
+import Button from '../components/Button.js'
+
+const hello = 'Hello world';
+const bool = false;
+
+<>
+    <html>
+        <head></head>
+        <body>
+            <h1>This is the index</h1>
+            <p>${hello}</p>
+            ${bool ? <><p>Hello</p></> : <><p>World</p></>}
+            <Button content="This is a button with props"/>
+        </body>
+    </html>
+</>
+```
+
+Hemos creado un componente Button.js y los emos implementado en nuestra pagina principal.
+
+Lo primero que hemos creado fue el componente como cualquier otro Skywind Template, la unica diferencia es que estamos obteniendo un valor de un objeto props del cual aun no no tenemos informacion, pero no se preocupe, dentro de poco cobrará sentido.
+
+Lo segundo que hemos hecho fue importar el componente Button a nuestra pagina principal y lo hemos implementado como una etiqueta HTML. De esta manera se implementan los componentes que creemos. 
+
+Si nos percatamos bien, en la implementacion del componente Button podemos ver que le estamos pasando una propiedad content que posee un valor de "This is a button with props", el cual es la misma propiedad que estamos obteniendo del objeto props en Button.js. Cualquier propiedad que le pasemos al componente podrá recuperarse en el componente utilizando el objeto props.
+
+Si el valor de la propiedad que queremos pasar al componente es un string, podemos utilizar directamente las comillas luego del =, pero si es un valor diferente debemos utilizar {} y dentro de estas colocar el valor.
+
+```jsx
+// pages/index.js
+
+import Button from '../components/Button.js'
+
+const hello = 'Hello world';
+const bool = false;
+
+<>
+    <html>
+        <head></head>
+        <body>
+            <h1>This is the index</h1>
+            <p>${hello}</p>
+            ${bool ? <><p>Hello</p></> : <><p>World</p></>}
+            <Button content={hello}/>
+        </body>
+    </html>
+</>
+```
 
 
 <!-- ROADMAP -->
