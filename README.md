@@ -242,6 +242,7 @@ const bool = false;
 </>
 ```
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
 ## Roadmap
