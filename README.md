@@ -286,22 +286,6 @@ Cabe mencionar que la ruta especificada en el método importStylesheet debe toma
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-<!-- ROADMAP -->
-## Roadmap
-
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ### API Folder
 
 Dentro de la carpeta pages existe otra carpeta con el nombre de api, esta carpeta posee un trato particular en el proyecto, ya que todos los archivos dentro de ella no son tomados como Skywind Templates, sino como endpoints con acceso a Request y Response.
