@@ -168,7 +168,7 @@ const bool = true;
     </html>
 </>
 ```
-Debemos recordar que todo codigo HTML debe estar envuelo en <></>
+Debemos recordar que todo codigo HTML debe estar envuelo en <></>.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
