@@ -82,6 +82,20 @@ Cuando la plantilla del proyecto termine su instalacion, nos debemos dirijir a d
    npm install
    ```
 
+Luego de isntalar las dependencias, debemos construir la aplicacion utilizando el siguiente comando: 
+
+* npm
+   ```sh
+   npm run build
+   ```
+
+Y por ultimo ya podemos iniciar nuestro servidor de desarrollo.
+
+* npm
+   ```sh
+   npm run dev
+   ```
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
