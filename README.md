@@ -101,7 +101,7 @@ Y por ultimo ya podemos iniciar nuestro servidor de desarrollo.
 
 Luego de ejecutar todos los comandos e iniciar el servidor de desarrollo podemos pareciar una estructura de carpetas un poco peculiar.
 
-![Product Name Screen Shot](https://drive.google.com/file/d/1TYHZnL6dTje1UaKgFwWcW7ob1xi8n28J/view)
+![Product Name Screen Shot](https://raw.githubusercontent.com/francescoalterio/skywind-assets/master/folder-structure.png)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
