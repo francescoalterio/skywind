@@ -77,7 +77,7 @@ Para crear nuestro primer proyecto debemos tener instalado node y npm, nos dirij
 
 Cuando la plantilla del proyecto termine su instalacion, nos debemos dirijir a dicha carpeta y luego instalar las dependencias con el siguiente comando: 
 
-Install NPM packages
+* npm
    ```sh
    npm install
    ```
