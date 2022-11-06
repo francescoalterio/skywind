@@ -132,7 +132,24 @@ Los Skywind Templates son archivos capaces de ejecutar javascript en el lado del
 </>
 ```
 
-En todo Skywind Template para hacer referencia a codigo HTML debe utilizar los isguientes simbolos <></>, Todo codigo HTML dentro de estos simbolos será enviado al cliente.
+Todo Skywind está dividido en dos partes, el codigo Javascript y el codigo HTML, para hacer referencia a codigo HTML debe utilizar los siguientes simbolos <></>, Todo codigo HTML dentro de estos simbolos será enviado al cliente.
+
+Si deseamos utilizar codigo javascript, debemos hacerlo antes del HTML, de la siguiente manera.
+
+```jsx
+const hello = 'Hello world';
+
+<>
+    <html>
+        <head></head>
+        <body>
+            <h1>This is the index</h1>
+            <p>${hello}</p>
+        </body>
+    </html>
+</>
+```
+Para interpolar valores dentro del HTML podemos hacerlo utilizando la sintaxis de los Template Strings "${}".
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
