@@ -38,6 +38,7 @@
         <li><a href="#pages-folder">Pages Folder</a></li>
         <li><a href="#skywind-templates">Skywind Templates</a></li>
         <li><a href="#components">Components</a></li>
+        <li><a href="#styles">Styles</a></li>
       </ul>
     </li>
     <li><a href="#roadmap">Roadmap</a></li>
