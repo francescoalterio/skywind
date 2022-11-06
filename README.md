@@ -249,7 +249,7 @@ const bool = false;
 
 En la raiz del proyecto existe otra carpeta que no hemos mencionado, las cual es la carpeta Styles, esta carpeta tambien es indispensable para Skywind, ya que en esta carpeta se deben agregar todos los archivos css que se utilizarán en el proyecto.
 
-luego de agregar los archivos css en la carpeta debemos importarlos en nuestro componentes y paginas, para evitar confudir importaciones locales, importaciones de componentes e importaciones de estilos, Skywind prove un metodo llamado importStylesheet, el cual importa una hoja de estilos css a nuestros componentes y paginas. Dicho metodo debe utilizarse a través de la clase Skywind.
+luego de agregar los archivos css en la carpeta debemos importarlos en nuestros componentes y paginas. Para evitar confudir importaciones locales, importaciones de componentes e importaciones de estilos, Skywind provee un método llamado importStylesheet, el cual importa una hoja de estilos css a nuestros componentes y paginas. Dicho metodo debe utilizarse a través de la clase Skywind.
 
 ```css
 h1 {
