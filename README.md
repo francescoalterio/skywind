@@ -62,7 +62,7 @@ Posee un sistema de enrutamiento bastante intuitivo, poderoso y facil de aprende
 
 ## Getting Started
 
-Skywind cuenta con una plantilla de inicio la cual se llama Create Skywind App, la cual usaremos apra iniciar nuestro primer proyecto.
+Skywind cuenta con una plantilla de inicio la cual se llama Create Skywind App, la cual usaremos para iniciar nuestro primer proyecto.
 
 ### Create a project
 
@@ -75,20 +75,11 @@ Para crear nuestro primer proyecto debemos tener instalado node y npm, nos dirij
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+Cuando la plantilla del proyecto termine su instalacion, nos debemos dirijir a dicha carpeta y luego instalar las dependencias con el siguiente comando: 
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
+Install NPM packages
    ```sh
    npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
