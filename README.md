@@ -244,6 +244,45 @@ const bool = false;
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### Styles
+
+En la raiz del proyecto existe otra carpeta que no hemos mencionado, las cual es la carpeta Styles, esta carpeta tambien es indispensable para Skywind, ya que en esta carpeta se deben agregar todos los archivos css que se utilizarán en el proyecto.
+
+luego de agregar los archivos css en la carpeta debemos importarlos en nuestro componentes y paginas, para evitar confudir importaciones locales, importaciones de componentes e importaciones de estilos, Skywind prove un metodo llamado importStylesheet, el cual importa una hoja de estilos css a nuestros componentes y paginas. Dicho metodo debe utilizarse a través de la clase Skywind.
+
+```css
+h1 {
+    color:aquamarine;
+}
+```
+
+```jsx
+// pages/index.js
+
+import Skywind from "skywind"
+import Button from '../components/Button.js'
+
+Skywind.importStylesheet('index.css');
+
+const hello = 'Hello world';
+const bool = false;
+
+<>
+    <html>
+        <head></head>
+        <body>
+            <h1>This is the index</h1>
+            <p>${hello}</p>
+            ${bool ? <><p>Hello</p></> : <><p>World</p></>}
+            <Button content="This is a button with props"/>
+        </body>
+    </html>
+</>
+```
+
+Cabe mencionar que la ruta especificada en el método importStylesheet debe tomar como referencia de inicio la carpeta styles, ya que Skywind buscara dichos archivos directamente en la carpeta styles.
+
+
 <!-- ROADMAP -->
 ## Roadmap
 
