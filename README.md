@@ -2,14 +2,10 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
   <h3 align="center">Skywind</h3>
 
   <p align="center">
-    Framework Web, liviano, rapido y minimalista!
+    Web Framework, light, fast and minimalist!
     <br />
     <br />
   </p>
@@ -43,10 +39,7 @@
       </ul>
     </li>
     <li><a href="#build-folder">Build Folder</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -55,20 +48,20 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Skywind hace sencillo la creacion de paginas webs con Server Side Rendering y Javascript. Su sencilles y su poca cantidad de dependencias le permite ser ejecutado en cualquier servidor de node. Skywind le permite granular sus paginas a pequeños componentes que se pueden reutilizar en cualquier parte de su pagina web.
+Skywind makes it easy to create web pages with Server Side Rendering and Javascript. Its simplicity and low dependencies allow it to be run on any node server. Skywind allows you to granulate your pages into small components that can be reused anywhere on your website.
 
-Posee un sistema de enrutamiento bastante intuitivo, poderoso y facil de aprender, tambien le permite la creacion de APIs utilizando el modulo HTTP de node.
+It has a very intuitive, powerful and easy to learn routing system, it also allows you to create APIs using node's HTTP module.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 ## Getting Started
 
-Skywind cuenta con una plantilla de inicio la cual se llama Create Skywind App, la cual usaremos para iniciar nuestro primer proyecto.
+Skywind has a starter template called Create Skywind App, which we will use to start our first project.
 
 ### Create a project
 
-Para crear nuestro primer proyecto debemos tener instalado node y npm, nos dirijiremos a la carpeta donde queramos crear nuestro proyecto y ejecutamos el sigiente comando: 
+To create our first project we must have node and npm installed, we will go to the folder where we want to create our project and execute the following command: 
 
 * npx
   ```sh
@@ -77,21 +70,21 @@ Para crear nuestro primer proyecto debemos tener instalado node y npm, nos dirij
 
 ### Installation
 
-Cuando la plantilla del proyecto termine su instalacion, nos debemos dirijir a dicha carpeta y luego instalar las dependencias con el siguiente comando: 
+When the project template finishes its installation, we must go to that folder and then install the dependencies with the following command: 
 
 * npm
    ```sh
    npm install
    ```
 
-Luego de instalar las dependencias, debemos construir la aplicacion utilizando el siguiente comando: 
+After installing the dependencies, we must build the application using the following command: 
 
 * npm
    ```sh
    npm run build
    ```
 
-Y por ultimo ya podemos iniciar nuestro servidor de desarrollo.
+And finally we can start our development server.
 
 * npm
    ```sh
@@ -103,7 +96,7 @@ Y por ultimo ya podemos iniciar nuestro servidor de desarrollo.
 
 ## Usage
 
-Luego de ejecutar todos los comandos e iniciar el servidor de desarrollo podemos apreciar una estructura de carpetas un poco peculiar.
+After executing all the commands and starting the development server we can appreciate a folder structure a bit peculiar.
 
 ![Product Name Screen Shot](https://raw.githubusercontent.com/francescoalterio/skywind-assets/master/folder-structure.png)
 
@@ -111,19 +104,19 @@ Luego de ejecutar todos los comandos e iniciar el servidor de desarrollo podemos
 
 ### Pages Folder
 
-La carpeta Pages es la mas importante de todas, es la carpeta que le da vida a todo el Framework y esta es indispensable para la construccion de cualquier pagina web con Skywind.
+The Pages folder is the most important of all, it is the folder that gives life to the whole Framework and it is indispensable for the construction of any web page with Skywind.
 
-Como ya se mencionó, la carpeta pages no es una simple carpeta ya que esta define el enrutamiento de todo el proyecto.
+As already mentioned, the pages folder is not a simple folder since it defines the routing of the whole project.
 
-Al iniciar el proyecto, esta carpeta posee un index.js, una carpeta api y dentro de la carpeta api otro index.js. Toda carpeta o archivo dentro de la carpeta pages se convierte automaticamente en una ruta. Ejemplo: si tenemos una carpeta store y dentro un archivo product.js, nustra web poseerá una ruta /store/product solo con crear los archivos y carpetas.
+When starting the project, this folder has an index.js, an api folder and inside the api folder another index.js. Every folder or file inside the pages folder is automatically converted into a route. Example: if we have a store folder and inside a product.js file, our website will have a /store/product path just by creating the files and folders.
 
-Como se mencionó, la carpeta pages posee dentro una carpeta api, todos los archivos y carpetas fuera de la carpeta api podran renderizar HTML, y todos los archivos y carpetas dentro de api seran tratados como endpoints teniendo acceso a Request y Response.
+As mentioned, the pages folder has inside an api folder, all files and folders outside the api folder will be able to render HTML, and all files and folders inside api will be treated as endpoints having access to Request and Response.
 
 ### Skywind Templates
 
-Todos los archivos dentro de la carpeta pages y fuera de la carpeta api son tratados como Skywind Templates.
+All files inside the pages folder and outside the api folder are treated as Skywind Templates.
 
-Los Skywind Templates son archivos capaces de ejecutar javascript en el lado del servidor y retornar un codigo HTML que será enviado al cliente para representar una pagina web.
+Skywind Templates are files capable of executing javascript on the server side and returning HTML code that will be sent to the client to render a web page.
 
 ```jsx
 <>
@@ -136,9 +129,9 @@ Los Skywind Templates son archivos capaces de ejecutar javascript en el lado del
 </>
 ```
 
-Todo Skywind está dividido en dos partes, el codigo Javascript y el codigo HTML, para hacer referencia a codigo HTML debe utilizar los siguientes simbolos <></>, Todo codigo HTML dentro de estos simbolos será enviado al cliente.
+All Skywind is divided into two parts, the Javascript code and the HTML code, to refer to HTML code you must use the following symbols <></>, all HTML code within these symbols will be sent to the client.
 
-Si deseamos utilizar codigo javascript, debemos hacerlo antes del HTML, de la siguiente manera.
+If we want to use javascript code, we must do it before the HTML, as follows.
 
 ```jsx
 const hello = 'Hello world';
@@ -153,9 +146,9 @@ const hello = 'Hello world';
     </html>
 </>
 ```
-Para interpolar valores dentro del HTML podemos hacerlo utilizando la sintaxis de los Template Strings "${}".
+To interpolate values inside the HTML we can do it using the Template Strings syntax "${}".
 
-Si necesitamos renderizar un HTML u otro dependiendo de una condicion, podemos utilizar el operador ternario de Javascript de la sigiente manera:
+If we need to render one HTML or another depending on a condition, we can use the Javascript ternary operator as follows:
 
 ```jsx
 const hello = 'Hello world';
@@ -172,15 +165,15 @@ const bool = true;
     </html>
 </>
 ```
-Debemos recordar que todo codigo HTML debe estar envuelo en <></>.
+We must remember that all HTML code must be wrapped in <></>.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Components
 
-Los componentes tambien son Skywind Templates, la diferencia de llamarlos componentes es que estos puedes ser guardados en cualquier carpeta del proyecto (Recomendamos utilizar la carpeta components que viene por defecto con create-skywind-app) excepto la carpeta pages y pueden ser reutilizados en diferentes paginas u otros componentes.
+The components are also Skywind Templates, the difference of calling them components is that these can be saved in any folder of the project (We recommend using the components folder that comes by default with create-skywind-app) except the pages folder and can be reused in different pages or other components.
 
-Estos componentes tan solo poseen una regla a la hora de crearlos, el nombre del archivo será el del componente y este nombre debe poseer su primera letra en Mayusculas, veamos un ejemplo de un componente.
+These components only have one rule when creating them, the name of the file will be the name of the component and this name must have its first letter in capital letters, let's see an example of a component.
 
 ```jsx
 // components/Button.js
@@ -213,15 +206,15 @@ const bool = false;
 </>
 ```
 
-Hemos creado un componente Button.js y los hemos implementado en nuestra pagina principal.
+We have created a Button.js component and we have implemented it in our main page.
 
-Lo primero que hemos creado fue el componente como cualquier otro Skywind Template, la unica diferencia es que estamos obteniendo un valor de un objeto props del cual aun no no tenemos informacion, pero no se preocupe, dentro de poco cobrará sentido.
+The first thing we created was the component like any other Skywind Template, the only difference is that we are getting a value from a props object that we don't have information about yet, but don't worry, it will make sense soon.
 
-Lo segundo que hemos hecho fue importar el componente Button a nuestra pagina principal y lo hemos implementado como una etiqueta HTML. De esta manera se implementan los componentes que creemos. 
+The second thing we have done was to import the Button component to our main page and we have implemented it as an HTML tag. This is how the components we create are implemented. 
 
-Si nos percatamos bien, en la implementacion del componente Button podemos ver que le estamos pasando una propiedad content que posee un valor de "This is a button with props", el cual es la misma propiedad que estamos obteniendo del objeto props en Button.js. Cualquier propiedad que le pasemos al componente podrá recuperarse en el componente utilizando el objeto props.
+If we look closely, in the implementation of the Button component we can see that we are passing it a content property that has a value of "This is a button with props", which is the same property that we are getting from the props object in Button.js. Any property that we pass to the component can be retrieved in the component using the props object.
 
-Si el valor de la propiedad que queremos pasar al componente es un string, podemos utilizar directamente las comillas luego del =, pero si es un valor diferente debemos utilizar {} y dentro de estas colocar el valor.
+If the value of the property that we want to pass to the component is a string, we can use the quotation marks directly after the =, but if it is a different value we must use {} and inside these we must place the value.
 
 ```jsx
 // pages/index.js
@@ -248,9 +241,13 @@ const bool = false;
 
 ### Styles
 
-En la raiz del proyecto existe otra carpeta que no hemos mencionado, las cual es la carpeta Styles, esta carpeta tambien es indispensable para Skywind, ya que en esta carpeta se deben agregar todos los archivos css que se utilizarán en el proyecto.
 
-luego de agregar los archivos css en la carpeta debemos importarlos en nuestros componentes y paginas. Para evitar confudir importaciones locales, importaciones de componentes e importaciones de estilos, Skywind provee un método llamado importStylesheet, el cual importa una hoja de estilos css a nuestros componentes y paginas. Dicho metodo debe utilizarse a través de la clase Skywind.
+In the root of the project there is another folder that we have not mentioned, which is the Styles folder, this folder is also indispensable for Skywind, since in this folder we must add all the css files that will be used in the project.
+
+After adding the css files in the folder we must import them in our components and pages. To avoid confusing local imports, component imports and style imports, Skywind provides a method called importStylesheet, which imports a css stylesheet to our components and pages. This method must be used through the Skywind class.
+In the root of the project there is another folder that we have not mentioned, which is the Styles folder, this folder is also indispensable for Skywind, since in this folder we must add all the css files that will be used in the project.
+
+After adding the css files in the folder we must import them in our components and pages. To avoid confusing local imports, component imports and style imports, Skywind provides a method called importStylesheet, which imports a css stylesheet to our components and pages. This method must be used through the Skywind class.
 
 ```css
 h1 {
@@ -282,13 +279,13 @@ const bool = false;
 </>
 ```
 
-Cabe mencionar que la ruta especificada en el método importStylesheet debe tomar como referencia de inicio la carpeta styles, ya que Skywind buscara dichos archivos directamente en la carpeta styles.
+It is worth mentioning that the path specified in the importStylesheet method must take the styles folder as a starting reference, since Skywind will look for such files directly in the styles folder.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### API Folder
 
-Dentro de la carpeta pages existe otra carpeta con el nombre de api, esta carpeta posee un trato particular en el proyecto, ya que todos los archivos dentro de ella no son tomados como Skywind Templates, sino como endpoints con acceso a Request y Response.
+Inside the pages folder there is another folder named api, this folder has a particular treatment in the project, since all the files inside it are not taken as Skywind Templates, but as endpoints with access to Request and Response.
 
 ```js
 // pages/api/index.js
@@ -299,17 +296,17 @@ export default function home(req, res) {
 }
 ```
 
-Cualquier archivo dentro de la carpeta api debe poseer una funcion que debe ser exportada de manera default, dicha funcion tiene acceso a dos parametros request y response, los cuales provienen del modulo HTTP de node.
+Any file inside the api folder must have a function that must be exported by default, this function has access to two parameters request and response, which come from node's HTTP module.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Build Folder
 
-En la raiz de nuestro proyecto queda una última carpeta con el nombre de build.
+In the root of our project there is a last folder with the name of build.
 
-El objetivo de las Skywind Templates es facilitar y acortar la construcción de páginas web, pero estas plantillas no son código javascript válido para el servidor. Skywind para esto ejecuta un compilador para convertir el código de Skywind Templates a código javascript válido, y esta contrucción la genera en la carpeta build.
+The purpose of Skywind Templates is to facilitate and shorten the construction of web pages, but these templates are not valid javascript code for the server. Skywind for this runs a compiler to convert the code of Skywind Templates to valid javascript code, and this construction generates it in the build folder.
 
-Si ponemos atención en nustro archivo index.js de la raiz del proyecto notamos que este archivo es el punto de entrada y tan solo ejecuta un método llamado compile.
+If we pay attention to our index.js file in the root of the project we notice that this file is the entry point and it only executes a method called compile.
 
 ```js
 // index.js
@@ -319,7 +316,7 @@ import Skywind, {Compiler} from 'skywind';
 Compiler.compile(process.cwd())
 ```
 
-Pero si observamos el index.js de la carpeta build encontramos un método diferente.
+But if we look at the index.js in the build folder we find a different method.
 
 ```js
 // build/index.js
@@ -329,20 +326,24 @@ import Skywind from 'skywind';
 Skywind.createApp('localhost', process.env.PORT, process.cwd())
 ```
 
-En la carpeta build se ejecuta un método createApp el cual tiene como objetivo levantar el servidor y toda la web que hemos construido pero con la excepcion que el código que se encuentra en la carpeta build si es codigo valido para Javascript.
+In the build folder a createApp method is executed which has the objective of raising the server and all the web that we have built but with the exception that the code that is in the build folder is valid code for Javascript.
 
-Cada que hagamos un cambio en nuestro proyecto, el compilador se ejecutará y modificará la carpeta build, iniciando un nuevo servidor con los ultimos cambios de nuestro codigo.
+Every time we make a change in our project, the compiler will run and modify the build folder, starting a new server with the latest changes in our code.
 
-Cabe resaltar que la carpeta build será la que utilizaremos para subir a nuestro servidor web, ya que esta contiene todo el codigo valido para cualquier servidor de node.
+It is necessary to emphasize that the folder build will be the one that we will use to upload to our web server, since this one contains all the valid code for any node server.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Francesco Alterio - francescoalteriog@gmail.com
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Repo: [https://github.com/francescoalterio/skywind/](https://github.com/francescoalterio/skywind)
+
+Portfolio: [https://francescoalterio.vercel.app/](https://francescoalterio.vercel.app/)
+
+Linkdin: [https://www.linkedin.com/in/francescoalterio/](https://www.linkedin.com/in/francescoalterio/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
