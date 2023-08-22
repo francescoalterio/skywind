@@ -244,9 +244,6 @@ const bool = false;
 In the root of the project there is another folder that we have not mentioned, which is the Styles folder, this folder is also indispensable for Skywind, since in this folder we must add all the css files that will be used in the project.
 
 After adding the css files in the folder we must import them in our components and pages. To avoid confusing local imports, component imports and style imports, Skywind provides a method called importStylesheet, which imports a css stylesheet to our components and pages. This method must be used through the Skywind class.
-In the root of the project there is another folder that we have not mentioned, which is the Styles folder, this folder is also indispensable for Skywind, since in this folder we must add all the css files that will be used in the project.
-
-After adding the css files in the folder we must import them in our components and pages. To avoid confusing local imports, component imports and style imports, Skywind provides a method called importStylesheet, which imports a css stylesheet to our components and pages. This method must be used through the Skywind class.
 
 ```css
 h1 {
